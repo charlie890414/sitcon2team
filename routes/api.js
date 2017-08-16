@@ -7,8 +7,19 @@ router.get('/group/:id', function(req, res, next) {
     var db = req.db;
     var collection = db.get('message');
     collection.find({"group":group},function(e,confirm){
-        console.log(typeof(group));
-        console.log(confirm);
+        //console.log(typeof(group));
+        //console.log(confirm);
+        if(e) console.log("reading error");
+        else res.send(confirm);
+    });
+});
+router.get('/group/meeting/:id', function(req, res, next) {
+    var group = parseInt(req.params.id);
+    var db = req.db;
+    var collection = db.get('meeting');
+    collection.find({"group":group},function(e,confirm){
+        //console.log(typeof(group));
+        //console.log(confirm);
         if(e) console.log("reading error");
         else res.send(confirm);
     });
