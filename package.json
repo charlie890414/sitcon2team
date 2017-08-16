@@ -1,0 +1,22 @@
+{
+  "name": "sitcon2team",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "bot": "node bot.js",
+    "web": "node ./bin/www",
+    "start": "concurrently \"npm run bot\" \"npm run web\""
+
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.2",
+    "node-telegram-bot-api": "^0.27.0",
+    "monk": "*"
+  }
+}
