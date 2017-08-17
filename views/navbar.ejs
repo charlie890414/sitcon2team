@@ -1,3 +1,10 @@
+<style media="screen">
+    .profile {
+        border-radius: 50%;
+        border:5px solid #fff;
+        height: 50px;
+    }
+</style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -12,10 +19,43 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-right">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.ajax({
+                    url: '<%= url %>',
+                    type: 'GET',
+                    error: function(xhr) {
+                      alert('Ajax request 發生錯誤');
+                    },
+                    success: function(response) {
+                        var labelmembers=[],photomember=[];
+                        for(var i=0;i<response.length;i++){
+                            if(response[i].photo==undefined)continue;
+                            var inlabel = false;
+                            for(var j=0;j<labelmembers.length;j++){
+                                if(response[i].user==labelmembers[j]){
+                                    inlabel=true;
+                                }
+                            }
+                            if(inlabel==false){
+                                labelmembers.push(response[i].user);
+                                photomember.push(response[i].photo);
+                                //console.log(datamembers);
+                            }
+                        }
+                        for(var i=0;i<photomember.length;i++){
+                            console.log(photomember[i]);
+                            $('.navbar-right').append('<img class="profile" title='+labelmembers[i]+' src='+photomember[i]+'>');
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
 
 
 
-      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

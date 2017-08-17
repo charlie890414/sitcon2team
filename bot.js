@@ -55,7 +55,7 @@ bot.onText(/^((?!\/).)*$/,message => {
     bot.getUserProfilePhotos(user, 0, 1).then(function(data){
         console.log(data.photos[0][0].file_id);
         //bot.sendPhoto(group,data.photos[0][0].file_id,{caption: "It's your photo!"});
-        bot.getFileLink(data.photos[0][0].file_id, 0, 1).then(function(link){
+        if(data.photos[0][0].file_id!="undefined")bot.getFileLink(data.photos[0][0].file_id, 0, 1).then(function(link){
             console.log(link);
             var collection = db.get('grouprunning');
             console.log(message);
