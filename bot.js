@@ -49,6 +49,11 @@ bot.onText(/\/start/, message => {
     });
 });
 
+bot.onText(/\/id/, message => {
+    var group = message.chat.id;
+    bot.sendMessage(group, group);
+});
+
 bot.onText(/^((?!\/).)*$/,message => {
     var group = message.chat.id;
     var user = message.from.id;
@@ -86,6 +91,32 @@ bot.onText(/^((?!\/).)*$/,message => {
             });
         });
     });
+
+    //bot.sendMessage(group, 'listening');
+});
+
+bot.onText(,message => {
+    var group = message.chat.id;
+    var user = message.from.id;
+    var collection = db.get('message');
+    var date = new Date().toLocaleDateString();
+    var time = new Date().toLocaleTimeString();
+    collection.insert({
+        'group': message.chat.id,
+        'userid' : message.from.id,
+        'user' : message.from.first_name + message.from.last_name,
+        'text' : message.text,
+        'date' : date,
+        'time' : time,
+        'photo' : link
+    }, function (err, doc) {
+       if (err) {
+           console.log("There was a problem adding the information to the database.");
+       }
+       else {
+           console.log("Insert message success");
+       }
+   });
 
     //bot.sendMessage(group, 'listening');
 });

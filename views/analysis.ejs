@@ -4,8 +4,7 @@
     <body>
         <% include navbar.ejs %>
 		<div class="col-md-12">
-			<div class="col-md-6">
-				<canvas id="myChart1"  height="200"></canvas>
+				<canvas id="myChart1"  height="100"></canvas>
 				<script>
 				$(document).ready(function(){
 					$.ajax({
@@ -85,59 +84,58 @@
 					  });
 				});
 				</script>
-			</div>
-			<div class="col-md-6">
-				<canvas id="myChart2"  height="200"></canvas>
-				<script type="text/javascript">
+		</div>
+		<div class="col-md-12">
+			<canvas id="myChart2"  height="100"></canvas>
+			<script type="text/javascript">
 				$(document).ready(function(){
-					$.ajax({
-					    url: '<%= url %>',
-					    type: 'GET',
-					    error: function(xhr) {
-					      alert('Ajax request 發生錯誤');
-					    },
-					    success: function(response) {
-							var ctx = document.getElementById("myChart2");
-						  	var labelmembers=['01','02','03','04','05','06','07','08','09','10','11','12',
-												'13','14','15','16','17','18','19','20','21','22','23','00'],
-												datamembers=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-							for(var i=0;i<response.length;i++){
-								for(var j=0;j<labelmembers.length;j++){
-									var str = '';
-									if(typeof(response[i].time)!='undefined')str = response[i].time.toString();
-									console.log(str);
-									if(str[0]+str[1]==labelmembers[j]){
-										datamembers[j]=datamembers[j]+1;
-									}
+				$.ajax({
+				    url: '<%= url %>',
+				    type: 'GET',
+				    error: function(xhr) {
+				      alert('Ajax request 發生錯誤');
+				    },
+				    success: function(response) {
+						var ctx = document.getElementById("myChart2");
+					  	var labelmembers=['01','02','03','04','05','06','07','08','09','10','11','12',
+											'13','14','15','16','17','18','19','20','21','22','23','00'],
+											datamembers=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+						for(var i=0;i<response.length;i++){
+							for(var j=0;j<labelmembers.length;j++){
+								var str = '';
+								if(typeof(response[i].time)!='undefined')str = response[i].time.toString();
+								console.log(str);
+								if(str[0]+str[1]==labelmembers[j]){
+									datamembers[j]=datamembers[j]+1;
 								}
 							}
+						}
 
-							var myLineChart = new Chart(ctx, {
-								type: 'line',
-								data: {
-			  				        labels: labelmembers,
-			  				        datasets: [{
-			  				            label: '# 時間內發言次數',
-			  				            data: datamembers
-			  				        }]
-			  				    },
-								options: {
-			  				        scales: {
-			  				            yAxes: [{
-			  				                ticks: {
-			  				                    beginAtZero:true
-			  				                }
-			  				            }]
-			  				        }
-			  				    }
-							});
+						var myLineChart = new Chart(ctx, {
+							type: 'line',
+							data: {
+                            labels: labelmembers,
+			  				       datasets: [{
+			  				           label: '# 時間內發言次數',
+			  				           data: datamembers
+			  				       }]
+			  				   },
+							options: {
+			  				       scales: {
+			  				           yAxes: [{
+			  				               ticks: {
+			  				                   beginAtZero:true
+			  				               }
+			  				           }]
+			  				       }
+			  				   }
+						});
 
-					    }
-					  });
-				});
+				    }
+				  });
+			});
 
 				</script>
-			</div>
 		</div>
 
     </body>
